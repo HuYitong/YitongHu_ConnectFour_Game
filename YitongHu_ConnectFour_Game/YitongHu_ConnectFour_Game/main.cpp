@@ -376,7 +376,7 @@ void IsTie() { //if all columns are full, the game ends with tie
 		isTie = true;
 }
 
-void IsWon() { //check if any player won when Wrap Around Mode is off
+bool IsWon() { //check if any player won when Wrap Around Mode is off
 	int count = 0, winflag = 1, i, j;
 	char cur = board[newy][newx] == 'X' ? 'X' : 'O';
 	for (i = newx - 1, j = newy; i >= 0 && count++ < num; i--){ //check left
@@ -394,7 +394,7 @@ void IsWon() { //check if any player won when Wrap Around Mode is off
 	}
 	count = 0;
 	if (winflag >= num)
-		isWon = true;
+		return true;
 	else
 		winflag = 1;
 	for (i = newx, j = newy + 1; j < columns && count++ < num; j++) { //check down
@@ -412,7 +412,7 @@ void IsWon() { //check if any player won when Wrap Around Mode is off
 	}
 	count = 0;
 	if (winflag >= num)
-		isWon = true;
+		return true;
 	else
 		winflag = 1;
 	for (i = newx + 1, j = newy + 1; i < rows && j < columns && count++ < num; i++, j++) { //check down-right
@@ -430,7 +430,7 @@ void IsWon() { //check if any player won when Wrap Around Mode is off
 	}
 	count = 0;
 	if (winflag >= num)
-		isWon = true;
+		return true;
 	else
 		winflag = 1;
 	for (i = newx - 1, j = newy + 1; i >= 0 && j < columns && count++ < num; i--, j++) { //check down-left
@@ -448,9 +448,10 @@ void IsWon() { //check if any player won when Wrap Around Mode is off
 	}
 	count = 0;
 	if (winflag >= num)
-		isWon = true;
+		return true;
 	else
 		winflag = 1;
+	return false;
 }
 
 void IsWonWrap() {
